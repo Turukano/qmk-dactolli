@@ -77,7 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 MO(SHIF),     KC_DOT,                                 KC_BSPC,     KC_SPC,
                                                  _______,     _______,                                _______,     _______
     ),
-   
+
+    [SHIF] = LAYOUT(
     S(KC_J),         S(KC_D),      S(KC_U),      S(KC_A),        S(KC_X),                               S(KC_P),      S(KC_H),      S(KC_L),      S(KC_M),      S(KC_W),
     S(KC_C),         S(KC_T),      S(KC_I),      S(KC_E),        S(KC_O),                               S(KC_B),      S(KC_N),      S(KC_R),      S(KC_S),      S(KC_G),
     S(KC_F),         S(KC_V),      S(DE_UDIA),   S(DE_ADIA),     TD(SHIOE),                             S(DE_Y),      S(DE_Z),      DE_UNDS,      DE_SEMI,      TD(SHIKQ),
@@ -106,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       UNNUM,                                                                            TD(ENTIST),
                                                  UNNUM,        KC_DOT,                                KC_BSPC,    KC_SPC,
                                                  _______,     _______,                                _______,     _______
-    )
+    ),
 
     [STRG] = LAYOUT(
     _______,         FN_DESKTOP,   _______,      FN_SEALL,       FN_CUT,                                FN_PRINT,     FN_NO,      FN_LCKSCRN,   FN_ROTATE,    FN_TXTSHT,
@@ -116,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______,                                                                            C(KC_ENTER),
                                                  _______,     _______,                                _______,    _______,
                                                  _______,     _______,                                _______,     _______
-    )
+    ),
 
     [FFOX] = LAYOUT(
     _______,         _______,      _______,      _______,        _______,                               _______,      FN_FFGOBACK,  FN_FFNTAB,    FN_FFGOFORTH, _______,
@@ -126,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______,                                                                            _______,
                                                  _______,     _______,                                _______,    _______,
                                                  _______,     _______,                                _______,     _______
-    )
+    ),
 
     [BLANKO] = LAYOUT(
     _______,         _______,      _______,      _______,        _______,                               _______,      _______,      _______,     _______,      _______,
@@ -136,29 +137,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______,                                                                            _______,
                                                  _______,     _______,                                _______,    _______,
                                                  _______,     _______,                                _______,     _______
-    )
+    ),
 };
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %d, time: %u, interrupt: %d, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif 
-    switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_BASE);
-            }
-            return false;
-            break;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-            break;
-    }
-    return true;
-}
-
